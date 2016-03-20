@@ -1,58 +1,63 @@
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.*;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
+public class Main extends Application {
 
-public class Main extends Application{
+    private Stage primaryStage;
+    private BorderPane baseLayout;
+
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("VideoGameApp");
 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        createBaseLayout();
+    }
 
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+    /**
+     * Base Frame.
+     */
+    public void createBaseLayout() {
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("views/base.fxml"));
+            baseLayout = loader.load();
 
-        Scene scene = new Scene(root, 300, 250);
-
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(baseLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
+        // This line needs to be at the end when we have the SQL connection working
         launch(args);
 
         String[] login = getOracleLogin();
-            try {
-                DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-                Connection con = DriverManager.getConnection(
-                        "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1521:ug", login[0], login[1]);
-            } catch (SQLException sqle) {
-                System.out.println(sqle);
-                System.exit(-2);
-            }
-
-
+        try {
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+            System.out.println("Setting up connection...");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1521:ug", login[0], login[1]);
+            System.out.println("Connected!");
+        } catch (SQLException sqle) {
+            System.out.println(sqle);
+            System.exit(-2);
+        }
 
     }
 
