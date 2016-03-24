@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:controller="controllers.CustomerController" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -15,6 +13,10 @@
                             <columns>
                                 <TableColumn prefWidth="75.0" fx:id="titleTableColumn"></TableColumn>
                                 <TableColumn prefWidth="75.0" fx:id="yearTableColumn"></TableColumn>
+                                <TableColumn prefWidth="75.0" fx:id="platformTableColumn"></TableColumn>
+                                <TableColumn prefWidth="75.0" fx:id="genreTableColumn"></TableColumn>
+                                <TableColumn prefWidth="75.0" fx:id="devnameTableColumn"></TableColumn>
+                                <TableColumn prefWidth="75.0" fx:id="pubnameTableColumn"></TableColumn>
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

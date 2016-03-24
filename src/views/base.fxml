@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+<BorderPane fx:controller="controllers.BaseController" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -31,17 +29,17 @@
             <tabs>
                 <Tab text="Customer">
                     <content>
-                        <fx:include fx:id="customerPage" source="customer.fxml"/>
+                        <fx:include fx:id="customer" source="customer.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="Employee">
                     <content>
-                        <fx:include fx:id="employeePage" source="employee.fxml"/>
+                        <fx:include fx:id="employee" source="employee.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="Manager">
                     <content>
-                        <fx:include fx:id="managerPage" source="manager.fxml"/>
+                        <fx:include fx:id="manager" source="manager.fxml"/>
                     </content>
                 </Tab>
             </tabs>
