@@ -3,11 +3,9 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,8 +18,6 @@ import javafx.stage.Stage;
 import model.CustomerModel;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,18 +73,11 @@ public class CustomerController extends AbstractTabController implements Initial
             scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             grid.add(scenetitle, 0, 0, 2, 1);
 
-            Label userName = new Label("Enter projection:");
-            grid.add(userName, 0, 1);
+            Label titleLabel = new Label("Video game title:");
+            grid.add(titleLabel, 0, 1);
 
             TextField userTextField = new TextField();
             grid.add(userTextField, 1, 1);
-
-            Label pw = new Label("NE:");
-            grid.add(pw, 0, 2);
-
-            PasswordField pwBox = new PasswordField();
-            grid.add(pwBox, 1, 2);
-
 
             Button btn = new Button("Sign in");
             HBox hbBtn = new HBox(10);
@@ -99,14 +88,21 @@ public class CustomerController extends AbstractTabController implements Initial
             final Text actiontarget = new Text();
             grid.add(actiontarget, 1, 6);
 
-            PreparedStatement pstatement = new Prepared
             btn.setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override
                 public void handle(ActionEvent e) {
                     actiontarget.setText("Executing query");
+                    CustomerModel model = (CustomerModel) getModel();
+                    ResultSet rs = model.makeTitleSelection(userTextField.getText());
+                    ResultSetParser rsparser = new ResultSetParser();
+                    TableView tbl = rsparser.colparse(rs);
+                    Scene tscene = new Scene(tbl);
+                    stage.setTitle("RESULTS");
+                    stage.setScene(tscene);
+                    stage.show();
 
-                }
+                   }
             });
 
             Scene scene = new Scene(grid, 300, 275);
@@ -120,6 +116,7 @@ public class CustomerController extends AbstractTabController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         titleTableColumn.setText("title");
         yearTableColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
@@ -132,6 +129,7 @@ public class CustomerController extends AbstractTabController implements Initial
         devnameTableColumn.setText("devname");
         pubnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("pubname"));
         pubnameTableColumn.setText("pubname");
+
     }
 
     public List<Game> getItemsToAdd() {
