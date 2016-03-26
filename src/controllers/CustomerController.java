@@ -76,10 +76,16 @@ public class CustomerController extends AbstractTabController implements Initial
             Label titleLabel = new Label("Video game title:");
             grid.add(titleLabel, 0, 1);
 
-            TextField userTextField = new TextField();
-            grid.add(userTextField, 1, 1);
+            TextField titleTextField = new TextField();
+            grid.add(titleTextField, 1, 1);
 
-            Button btn = new Button("Sign in");
+            Label cityLabel = new Label("City to search in:");
+            grid.add(cityLabel, 0, 2);
+
+            TextField cityTextField = new TextField();
+            grid.add(cityTextField, 1, 2);
+
+            Button btn = new Button("Search");
             HBox hbBtn = new HBox(10);
             hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
             hbBtn.getChildren().add(btn);
@@ -88,13 +94,28 @@ public class CustomerController extends AbstractTabController implements Initial
             final Text actiontarget = new Text();
             grid.add(actiontarget, 1, 6);
 
+            //A checkbox without a caption
+            CheckBox details = new CheckBox("SHOW Game Details");
+            details.setText("Show game details");
+            grid.add(details, 2, 3);
+
+            CheckBox checkStock = new CheckBox();
+            checkStock.setText("In Stock?");
+            grid.add(checkStock, 1, 3);
+
             btn.setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override
                 public void handle(ActionEvent e) {
                     actiontarget.setText("Executing query");
                     CustomerModel model = (CustomerModel) getModel();
-                    ResultSet rs = model.makeTitleSelection(userTextField.getText());
+                    model.setInStock(checkStock.isSelected());
+                    model.setDetails(details.isSelected());
+                    ResultSet rs = model.generateAndExecuteQuery(titleTextField.getText(), cityTextField.getText());
+                    if (rs == null) {
+                        System.out.println("ResultSet Null");
+                        return;
+                    }
                     ResultSetParser rsparser = new ResultSetParser();
                     TableView tbl = rsparser.colparse(rs);
                     Scene tscene = new Scene(tbl);
@@ -102,10 +123,10 @@ public class CustomerController extends AbstractTabController implements Initial
                     stage.setScene(tscene);
                     stage.show();
 
-                   }
+                }
             });
 
-            Scene scene = new Scene(grid, 300, 275);
+            Scene scene = new Scene(grid, 500, 300);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
@@ -116,6 +137,7 @@ public class CustomerController extends AbstractTabController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
         titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         titleTableColumn.setText("title");

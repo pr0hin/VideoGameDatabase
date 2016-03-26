@@ -9,9 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by rohinpatel on 2016-03-22.
@@ -45,7 +43,6 @@ public class ResultSetParser {
 
                 System.out.println("Column [" + i + "] ");
             }
-
             while (rs.next()) {
                 //Iterate Row
                 ObservableList<String> row = FXCollections.observableArrayList();
