@@ -16,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.CustomerModel;
+import model.NotLoggedInException;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -59,11 +60,95 @@ public class CustomerController extends AbstractTabController implements Initial
         gameTableView.getItems().setAll(getItemsToAdd());
     }
 
-    public void selectionForm(ActionEvent event) {
+    public void logout(ActionEvent event) {
+        CustomerModel model = (CustomerModel) getModel();
+        String user = model.executeLogout();
+        ButtonType okbutton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        Dialog dialog = new Dialog();
+        dialog.getDialogPane().getButtonTypes().add(okbutton);
+        dialog.setContentText("Logged out " + user);
+        dialog.show();
+    }
 
+    public void getFavouriteGames(ActionEvent event) {
+
+        CustomerModel model = (CustomerModel) getModel();
         try {
+            ResultSet rs = model.executeGetFavouriteGames();
+            if (rs == null) {
+                createDialog("No favourite games");
+
+            }
+            ResultSetParser rsparser = new ResultSetParser();
+            TableView tbl = rsparser.colparse(rs);
             Stage stage = new Stage();
-            stage.setTitle("Selection form");
+            Scene tscene = new Scene(tbl);
+            stage.setTitle("RESULTS");
+            stage.setScene(tscene);
+            stage.show();
+
+        } catch (NotLoggedInException e) {
+            createDialog(e.getMessage());
+        } catch (SQLException sqle) {
+            createDialog(sqle.getMessage());
+        }
+
+
+    }
+
+    public void loginForm(ActionEvent event) {
+
+        Stage stage = new Stage();
+        stage.setTitle("Game Search");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        Text scenetitle = new Text("Login");
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(scenetitle, 0, 0, 2, 1);
+        Label emailLabel = new Label("Email: ");
+        grid.add(emailLabel, 0, 1);
+
+        TextField emailTextField = new TextField();
+        grid.add(emailTextField, 1, 1);
+
+        Button btn = new Button("Login");
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn.getChildren().add(btn);
+        grid.add(hbBtn, 1, 4);
+
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 6);
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                actiontarget.setText("Logging in...");
+                CustomerModel model = (CustomerModel) getModel();
+                try {
+                    String response = model.executeLogin(emailTextField.getText());
+                    actiontarget.setText(response);
+                } catch (SQLException sqle) {
+                    createDialog(sqle.getMessage());
+
+                }
+            }
+        });
+
+        Scene scene = new Scene(grid, 300, 300);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void gameSearchForm(ActionEvent event) {
+
+            Stage stage = new Stage();
+            stage.setTitle("Game Search");
             GridPane grid = new GridPane();
             grid.setAlignment(Pos.CENTER);
             grid.setHgap(10);
@@ -111,17 +196,17 @@ public class CustomerController extends AbstractTabController implements Initial
                     CustomerModel model = (CustomerModel) getModel();
                     model.setInStock(checkStock.isSelected());
                     model.setDetails(details.isSelected());
-                    ResultSet rs = model.generateAndExecuteQuery(titleTextField.getText(), cityTextField.getText());
-                    if (rs == null) {
-                        System.out.println("ResultSet Null");
-                        return;
+                    try {
+                        ResultSet rs = model.executeGameSearchQuery(titleTextField.getText(), cityTextField.getText());
+                        ResultSetParser rsparser = new ResultSetParser();
+                        TableView tbl = rsparser.colparse(rs);
+                        Scene tscene = new Scene(tbl);
+                        stage.setTitle("RESULTS");
+                        stage.setScene(tscene);
+                        stage.show();
+                    } catch (SQLException sqle) {
+                        createDialog(sqle.getMessage());
                     }
-                    ResultSetParser rsparser = new ResultSetParser();
-                    TableView tbl = rsparser.colparse(rs);
-                    Scene tscene = new Scene(tbl);
-                    stage.setTitle("RESULTS");
-                    stage.setScene(tscene);
-                    stage.show();
 
                 }
             });
@@ -129,9 +214,6 @@ public class CustomerController extends AbstractTabController implements Initial
             Scene scene = new Scene(grid, 500, 300);
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -151,6 +233,15 @@ public class CustomerController extends AbstractTabController implements Initial
         devnameTableColumn.setText("devname");
         pubnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("pubname"));
         pubnameTableColumn.setText("pubname");
+
+    }
+
+    public void createDialog(String s) {
+        ButtonType okbutton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        Dialog dialog = new Dialog();
+        dialog.getDialogPane().getButtonTypes().add(okbutton);
+        dialog.setContentText(s);
+        dialog.show();
 
     }
 
