@@ -86,10 +86,8 @@ public class CustomerModel extends AbstractModel {
             if (userlogin.equals("")) {
                 throw new NotLoggedInException("User not logged in");
             }
-            ResultSet rs = stmt.executeQuery("SELECT * from favouritegame WHERE customer.email=\'" + userlogin + "\'");
+            ResultSet rs = stmt.executeQuery("SELECT * from favoritegame WHERE favoritegame.email=\'" + userlogin + "\'");
             return rs;
-
-
 
     }
 
