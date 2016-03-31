@@ -14,9 +14,7 @@ CREATE TABLE gamedevs(
     launchyear SMALLINT,
     devName CHAR(32),
     pubName CHAR(32),
-    PRIMARY KEY(title, launchyear),
-    FOREIGN KEY(upc, platform) references gameupc
-        ON DELETE CASCADE
+    PRIMARY KEY(title, launchyear)
 );
 
 CREATE TABLE gameupc(
@@ -26,7 +24,9 @@ CREATE TABLE gameupc(
     platform CHAR(16),
     genre CHAR(16),
     PRIMARY KEY(UPC, platform),
-    UNIQUE(title, launchyear, platform)
+    UNIQUE(title, launchyear, platform),
+    FOREIGN KEY(title, launchyear) references gamedevs
+        ON DELETE CASCADE
 );
 
 CREATE TABLE store (
