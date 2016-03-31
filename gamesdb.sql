@@ -8,6 +8,17 @@ drop table ordercontains CASCADE CONSTRAINTS;
 drop table customer CASCADE CONSTRAINTS;
 drop table favoritegame CASCADE CONSTRAINTS;
 
+
+CREATE TABLE gamedevs(
+    title CHAR(140),
+    launchyear SMALLINT,
+    devName CHAR(32),
+    pubName CHAR(32),
+    PRIMARY KEY(title, launchyear),
+    FOREIGN KEY(upc, platform) references gameupc
+        ON DELETE CASCADE
+);
+
 CREATE TABLE gameupc(
     upc CHAR(12),
     title CHAR(140),
@@ -16,14 +27,6 @@ CREATE TABLE gameupc(
     genre CHAR(16),
     PRIMARY KEY(UPC, platform),
     UNIQUE(title, launchyear, platform)
-);
-
-CREATE TABLE gamedevs(
-    title CHAR(140),
-    launchyear SMALLINT,
-    devName CHAR(32),
-    pubName CHAR(32),
-    PRIMARY KEY(title, launchyear)
 );
 
 CREATE TABLE store (
@@ -109,22 +112,6 @@ CREATE TABLE favoritegame(
 		ON DELETE CASCADE
 );
 
-INSERT INTO gameupc VALUES ('222233334444', 'The legend of Zelda', 1990, 'PC', 'Fantasy'); 
-INSERT INTO gameupc VALUES ('000000000001', 'Tony Hawks Pro Skater 2', 2000, 'PS', 'Sports');
-INSERT INTO gameupc VALUES ('000000000002', 'Grand Theft Auto IV', 2008, 'PS3', 'Action');
-INSERT INTO gameupc VALUES ('000000000003', 'SoulCalibur', 1999, 'DC', 'Action');
-INSERT INTO gameupc VALUES ('000000000004', 'Super Mario Galaxy', 2007, 'WII', 'Action');   
-INSERT INTO gameupc VALUES ('000000000005', 'Halo: Combat Evolved', 2001, 'XBOX', 'Action');    
-INSERT INTO gameupc VALUES ('000000000006', 'Half-Life 2', 2004, 'PC', 'Action');
-INSERT INTO gameupc VALUES ('000000000007', 'Tekken 3', 1998, 'PS', 'Action');
-INSERT INTO gameupc VALUES ('000000000008', 'Gran Turismo', 1998, 'PS', 'Racing');
-INSERT INTO gameupc VALUES ('000000000009', 'Grand Theft Auto:San Andreas', 2004, 'PS2', 'Action');
-INSERT INTO gameupc VALUES ('000000000010', 'Rayman 10: Snakes', 2020, 'PS5', 'Adventure');
-INSERT INTO gameupc VALUES ('000000000011', 'Rocket League 2', 2021, 'PS5', 'Sports');
-INSERT INTO gameupc VALUES ('000000000012', 'Tekken 3', 1999, 'PC', 'Action');
-INSERT INTO gameupc VALUES ('000000000013', 'Gran Turismo', 1999, 'PC', 'Racing');
-INSERT INTO gameupc VALUES ('000000000014', 'The legend of Zelda', 1991, 'PS', 'Fantasy');
-INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS5', 'Action');
 
 INSERT INTO gamedevs VALUES ('The legend of Zelda', 1990, 'Nintendo', 'Nintendo');
 INSERT INTO gamedevs VALUES ('Tony Hawks Pro Skater 2', 2000, 'Neversoft', 'Activision');
@@ -143,6 +130,22 @@ INSERT INTO gamedevs VALUES ('Gran Turismo', 1999, 'Polyphony Digital', 'Sony');
 INSERT INTO gamedevs VALUES ('The legend of Zelda', 1991, 'Nintendo', 'Nintendo');
 INSERT INTO gamedevs VALUES ('Batman: Retirement Sucks', 2020, 'Rocksteady', 'Warner Bros');
 
+INSERT INTO gameupc VALUES ('222233334444', 'The legend of Zelda', 1990, 'PC', 'Fantasy'); 
+INSERT INTO gameupc VALUES ('000000000001', 'Tony Hawks Pro Skater 2', 2000, 'PS', 'Sports');
+INSERT INTO gameupc VALUES ('000000000002', 'Grand Theft Auto IV', 2008, 'PS3', 'Action');
+INSERT INTO gameupc VALUES ('000000000003', 'SoulCalibur', 1999, 'DC', 'Action');
+INSERT INTO gameupc VALUES ('000000000004', 'Super Mario Galaxy', 2007, 'WII', 'Action');   
+INSERT INTO gameupc VALUES ('000000000005', 'Halo: Combat Evolved', 2001, 'XBOX', 'Action');    
+INSERT INTO gameupc VALUES ('000000000006', 'Half-Life 2', 2004, 'PC', 'Action');
+INSERT INTO gameupc VALUES ('000000000007', 'Tekken 3', 1998, 'PS', 'Action');
+INSERT INTO gameupc VALUES ('000000000008', 'Gran Turismo', 1998, 'PS', 'Racing');
+INSERT INTO gameupc VALUES ('000000000009', 'Grand Theft Auto:San Andreas', 2004, 'PS2', 'Action');
+INSERT INTO gameupc VALUES ('000000000010', 'Rayman 10: Snakes', 2020, 'PS5', 'Adventure');
+INSERT INTO gameupc VALUES ('000000000011', 'Rocket League 2', 2021, 'PS5', 'Sports');
+INSERT INTO gameupc VALUES ('000000000012', 'Tekken 3', 1999, 'PC', 'Action');
+INSERT INTO gameupc VALUES ('000000000013', 'Gran Turismo', 1999, 'PC', 'Racing');
+INSERT INTO gameupc VALUES ('000000000014', 'The legend of Zelda', 1991, 'PS', 'Fantasy');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS5', 'Action');
 
 INSERT INTO store VALUES (0, 'Vancouver', '2205 Lower Mall'); 
 INSERT INTO store VALUES (1, 'Burnaby', 'Burnaby lane');

@@ -42,8 +42,9 @@ public class CustomerModel extends AbstractModel {
             if (isInStock) {
                 qry.append("stock > 0 AND ");
             }
+
             if (!title.equals("")) {
-                qry.append("title LIKE \'%" + title + "%\'");
+                qry.append("UPPER(title) LIKE \'%" + title.toUpperCase() + "%\'");
 
             }
             int len = qry.length();
@@ -86,7 +87,7 @@ public class CustomerModel extends AbstractModel {
             if (userlogin.equals("")) {
                 throw new NotLoggedInException("User not logged in");
             }
-            ResultSet rs = stmt.executeQuery("SELECT * from favoritegame WHERE favoritegame.email=\'" + userlogin + "\'");
+            ResultSet rs = stmt.executeQuery("SELECT * from favoritegame NATURAL JOIN gameupc WHERE favoritegame.email=\'" + userlogin + "\'");
             return rs;
 
     }
