@@ -8,7 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -21,8 +21,6 @@ import model.NotLoggedInException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -32,32 +30,10 @@ import java.util.ResourceBundle;
 public class CustomerController extends AbstractTabController implements Initializable {
 
     @FXML
-    private TableView<Game> gameTableView;
-
-    @FXML
-    private TableColumn<Game, String> titleTableColumn;
-
-    @FXML
-    private TableColumn<Game, String> yearTableColumn;
-
-    @FXML
-    private TableColumn<Game, String> platformTableColumn;
-
-    @FXML
-    private TableColumn<Game, String> genreTableColumn;
-
-    @FXML
-    private TableColumn<Game, String> devnameTableColumn;
-
-    @FXML
-    private TableColumn<Game, String> pubnameTableColumn;
+    private AnchorPane gameTableViewContainer;
 
     public CustomerController() {
         super(new CustomerModel());
-    }
-
-    public void displayTable(ActionEvent event) {
-        gameTableView.getItems().setAll(getItemsToAdd());
     }
 
     public void logout(ActionEvent event) {
@@ -81,12 +57,9 @@ public class CustomerController extends AbstractTabController implements Initial
             }
             ResultSetParser rsparser = new ResultSetParser();
             TableView tbl = rsparser.colparse(rs);
-            Stage stage = new Stage();
-            Scene tscene = new Scene(tbl);
-            stage.setTitle("RESULTS");
-            stage.setScene(tscene);
-            stage.show();
 
+            // Insert table into the AnchorPane
+            addTable(tbl);
         } catch (NotLoggedInException e) {
             createDialog(e.getMessage());
         } catch (SQLException sqle) {
@@ -200,10 +173,8 @@ public class CustomerController extends AbstractTabController implements Initial
                         ResultSet rs = model.executeGameSearchQuery(titleTextField.getText(), cityTextField.getText());
                         ResultSetParser rsparser = new ResultSetParser();
                         TableView tbl = rsparser.colparse(rs);
-                        Scene tscene = new Scene(tbl);
-                        stage.setTitle("RESULTS");
-                        stage.setScene(tscene);
-                        stage.show();
+
+                        addTable(tbl);
                     } catch (SQLException sqle) {
                         createDialog(sqle.getMessage());
                     }
@@ -219,21 +190,6 @@ public class CustomerController extends AbstractTabController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
-        titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        titleTableColumn.setText("title");
-        yearTableColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
-        yearTableColumn.setText("year");
-        platformTableColumn.setCellValueFactory(new PropertyValueFactory<>("platform"));
-        platformTableColumn.setText("platform");
-        genreTableColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        genreTableColumn.setText("genre");
-        devnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("devname"));
-        devnameTableColumn.setText("devname");
-        pubnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("pubname"));
-        pubnameTableColumn.setText("pubname");
-
     }
 
     public void createDialog(String s) {
@@ -245,34 +201,12 @@ public class CustomerController extends AbstractTabController implements Initial
 
     }
 
-    public List<Game> getItemsToAdd() {
-        ArrayList<Game> games = new ArrayList<>();
-        Game game;
-        try {
-            CustomerModel customerModel = (CustomerModel) this.getModel();
-            ResultSet rs = customerModel.getGames();
-
-            while (rs.next()) {
-                String title = rs.getString(1);
-                String launchyear = rs.getString(2);
-                String platform = rs.getString(3);
-                String genre = rs.getString(4);
-                String devname = rs.getString(5);
-                String pubname = rs.getString(6);
-
-                game = new Game();
-                game.setTitle(title);
-                game.setYear(launchyear);
-                game.setPlatform(platform);
-                game.setGenre(genre);
-                game.setDevname(devname);
-                game.setPubname(pubname);
-                games.add(game);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return games;
+    public void addTable(TableView tbl) {
+        gameTableViewContainer.getChildren().add(tbl);
+        // Some setting to make the child table fill the parent AnchorPane
+        gameTableViewContainer.setBottomAnchor(tbl, 0.0);
+        gameTableViewContainer.setTopAnchor(tbl, 0.0);
+        gameTableViewContainer.setLeftAnchor(tbl, 0.0);
+        gameTableViewContainer.setRightAnchor(tbl, 0.0);
     }
 }
