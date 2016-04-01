@@ -146,8 +146,8 @@ public class CustomerController extends AbstractTabController implements Initial
         Button sbtn = new Button("Search");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(sbtn);
         hbBtn.getChildren().add(genbtn);
+        hbBtn.getChildren().add(sbtn);
         grid.add(hbBtn, 1, 4);
 
         final Text actiontarget = new Text();
@@ -168,6 +168,9 @@ public class CustomerController extends AbstractTabController implements Initial
             public void handle(ActionEvent event) {
                 try {
                     ResultSet rs = model.executeAdvancedGameSearch(actiontarget.getText());
+                    ResultSetParser rsparser = new ResultSetParser();
+                    TableView tbl = rsparser.colparse(rs);
+                    addTable(tbl, gameTableViewContainer);
                 } catch (SQLException sqle) {
                     createDialog(sqle.getMessage());
                 }
@@ -175,7 +178,7 @@ public class CustomerController extends AbstractTabController implements Initial
             }
         });
 
-        Scene scene = new Scene(grid, 300, 300);
+        Scene scene = new Scene(grid, 500, 500);
         stage.setScene(scene);
         stage.show();
 
