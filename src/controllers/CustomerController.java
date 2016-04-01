@@ -59,7 +59,7 @@ public class CustomerController extends AbstractTabController implements Initial
             TableView tbl = rsparser.colparse(rs);
 
             // Insert table into the AnchorPane
-            addTable(tbl);
+            addTable(tbl, this.gameTableViewContainer);
         } catch (NotLoggedInException e) {
             createDialog(e.getMessage());
         } catch (SQLException sqle) {
@@ -239,7 +239,7 @@ public class CustomerController extends AbstractTabController implements Initial
                         ResultSetParser rsparser = new ResultSetParser();
                         TableView tbl = rsparser.colparse(rs);
 
-                        addTable(tbl);
+                        addTable(tbl, gameTableViewContainer);
                     } catch (SQLException sqle) {
                         createDialog(sqle.getMessage());
                     }
@@ -255,23 +255,5 @@ public class CustomerController extends AbstractTabController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    }
-
-    public void createDialog(String s) {
-        ButtonType okbutton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-        Dialog dialog = new Dialog();
-        dialog.getDialogPane().getButtonTypes().add(okbutton);
-        dialog.setContentText(s);
-        dialog.show();
-
-    }
-
-    public void addTable(TableView tbl) {
-        gameTableViewContainer.getChildren().add(tbl);
-        // Some setting to make the child table fill the parent AnchorPane
-        gameTableViewContainer.setBottomAnchor(tbl, 0.0);
-        gameTableViewContainer.setTopAnchor(tbl, 0.0);
-        gameTableViewContainer.setLeftAnchor(tbl, 0.0);
-        gameTableViewContainer.setRightAnchor(tbl, 0.0);
     }
 }

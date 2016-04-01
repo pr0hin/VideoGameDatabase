@@ -6,4 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:controller="controllers.EmployeeController" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <SplitPane dividerPositions="0.7" layoutX="153.0" layoutY="70.0" prefHeight="700.0" prefWidth="600.0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane fx:id="employeeTableViewContainer" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="900.0">
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <Label text="Employee Queries" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <GridPane AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+                        </GridPane>
+                        <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                            <buttons>
+                            </buttons>
+                        </ButtonBar>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>
