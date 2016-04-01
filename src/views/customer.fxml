@@ -19,6 +19,7 @@
                                 <Button mnemonicParsing="false" text="Login" onAction="#loginForm"/>
                                 <Button mnemonicParsing="false" text="Logout" onAction="#logout"/>
                                 <Button mnemonicParsing="false" text="Game Search" onAction="#gameSearchForm"/>
+                                <Button mnemonicParsing="false" text="Adv. Game Search" onAction="#advancedSearchForm"/>
                                 <Button mnemonicParsing="false" text="Favourite Games" onAction="#getFavouriteGames"/>
                             </buttons>
                         </ButtonBar>

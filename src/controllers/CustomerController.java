@@ -117,6 +117,71 @@ public class CustomerController extends AbstractTabController implements Initial
         stage.show();
 
     }
+    public void advancedSearchForm(ActionEvent event){
+
+        Stage stage = new Stage();
+        stage.setTitle("Advanced Game Search");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        Text scenetitle = new Text("Games selection");
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(scenetitle, 0, 0, 2, 1);
+
+        Label columnLabel = new Label("Column headers:");
+        grid.add(columnLabel, 0, 1);
+
+        TextField columnTextField = new TextField();
+        grid.add(columnTextField, 1, 1);
+
+        Label conditionLabel = new Label("Conditions:");
+        grid.add(conditionLabel, 0, 2);
+
+        TextField conditionTextField = new TextField();
+        grid.add(conditionTextField, 1, 2);
+
+        Button genbtn = new Button("Generate Query");
+        Button sbtn = new Button("Search");
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn.getChildren().add(sbtn);
+        hbBtn.getChildren().add(genbtn);
+        grid.add(hbBtn, 1, 4);
+
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 6);
+
+        CustomerModel model = (CustomerModel) getModel();
+
+        genbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String qry = model.generateAdvancedSearchString(columnTextField.getText(), conditionTextField.getText());
+                actiontarget.setText(qry);
+            }
+        });
+
+        sbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    ResultSet rs = model.executeAdvancedGameSearch(actiontarget.getText());
+                } catch (SQLException sqle) {
+                    createDialog(sqle.getMessage());
+                }
+
+            }
+        });
+
+        Scene scene = new Scene(grid, 300, 300);
+        stage.setScene(scene);
+        stage.show();
+
+
+
+    }
 
     public void gameSearchForm(ActionEvent event) {
 

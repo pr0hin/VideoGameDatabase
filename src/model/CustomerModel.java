@@ -81,6 +81,22 @@ public class CustomerModel extends AbstractModel {
 
     }
 
+    public String generateAdvancedSearchString(String cols, String conds) {
+        return "SELECT " + cols + " FROM gameupc NATURAL JOIN gamedevs WHERE " + conds;
+
+
+
+    }
+
+    public ResultSet executeAdvancedGameSearch(String qry) throws SQLException {
+
+
+        Statement stmt = this.getConn().createStatement();
+        ResultSet rs = stmt.executeQuery(qry);
+        return rs;
+
+    }
+
     public ResultSet executeGetFavouriteGames() throws NotLoggedInException, SQLException{
 
             Statement stmt = this.getConn().createStatement();
