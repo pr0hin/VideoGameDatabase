@@ -20,6 +20,7 @@
                             <buttons>
                                 <Button mnemonicParsing="false" text="Employee Search" onAction="#employeeSearchForm"/>
                                 <Button mnemonicParsing="false" text="Employee Update" onAction="#employeeUpdateForm"/>
+                                <Button mnemonicParsing="false" text="Employee Delete" onAction="#employeeDelete"/>
                             </buttons>
                         </ButtonBar>
                     </children>

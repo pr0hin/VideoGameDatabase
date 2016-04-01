@@ -206,4 +206,101 @@ public class ManagerController extends AbstractTabController implements Initiali
         stage.show();
 
     }
+
+    public void employeeDelete(ActionEvent event) {
+        List<Node> containerChildren = managerTableViewContainer.getChildren();
+
+        if (containerChildren.size() == 0) {
+            createDialog("Please query and select an employee first");
+            return;
+        }
+
+        TableView employeeTable = (TableView) containerChildren.get(0);
+
+        // Get employeeTable column titles
+        List cols = employeeTable.getColumns();
+
+        // Get the selected table row
+        List item = (List) employeeTable.getSelectionModel().getSelectedItem();
+        if (item == null || item.size() == 0) {
+            createDialog("Please select a row to update");
+            return;
+        }
+
+        String eid = "";
+        String name = "";
+
+        for (int i = 0; i < cols.size(); i++) {
+            TableColumn col = (TableColumn) cols.get(i);
+            System.out.println(col.getText());
+            if (col.getText().equals("EID")) {
+                eid = (String) item.get(i);
+            } else if (col.getText().equals("NAME")) {
+                name = ((String) item.get(i)).trim();
+            }
+        }
+
+        if (eid.equals("") || name.equals("")) {
+            createDialog("No columns found");
+            return;
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("Delete Employee");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        Text scenetitle = new Text("Remove " + name + " (EID = " + eid + ") from database?" );
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        grid.add(scenetitle, 0, 0, 2, 1);
+
+        Button yesBtn = new Button("Yes");
+        Button noBtn = new Button("No");
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+        hbBtn.getChildren().add(yesBtn);
+        hbBtn.getChildren().add(noBtn);
+        grid.add(hbBtn, 1, 4);
+
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 6);
+
+        final String finalEid = eid;
+
+        yesBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                actiontarget.setText("Executing query");
+                ManagerModel model = (ManagerModel) getModel();
+                try {
+                    int success = model.deleteEmployee(finalEid);
+                    System.out.println(success);
+                    if (success == 1) {
+                        stage.close();
+                        createDialog("EID: " + finalEid + " deleted successfully!");
+                    } else {
+                        createDialog("Deletion failed");
+                    }
+                } catch (SQLException sqle) {
+                    createDialog(sqle.getMessage());
+                }
+
+            }
+        });
+
+        noBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+        });
+
+        Scene scene = new Scene(grid, 400, 150);
+        stage.setScene(scene);
+        stage.show();
+
+   }
 }

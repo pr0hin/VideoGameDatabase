@@ -72,6 +72,15 @@ public class ManagerModel extends AbstractModel {
         return success;
     }
 
+    public int deleteEmployee(String eid) throws SQLException {
+        String qry = "DELETE from employee WHERE eid = \'" + eid + "\'";
+
+        Statement stmt = getConn().createStatement();
+        int success = stmt.executeUpdate(qry);
+
+        return success;
+    }
+
     public void setIsManager(boolean isManager) {
         this.isManager = isManager;
     }
