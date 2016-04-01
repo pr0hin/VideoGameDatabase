@@ -1,34 +1,26 @@
 package controllers;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.EmployeeModel;
-import model.NotLoggedInException;
-
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
  * Created by kevinchiang on 2016-03-19.
  */
 public class EmployeeController extends AbstractTabController implements Initializable {
+
+    @FXML
+    AnchorPane employeeTableViewContainer;
+
 
     public EmployeeController() {
         super(new EmployeeModel());
