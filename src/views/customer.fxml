@@ -16,6 +16,7 @@
                         </GridPane>
                         <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                             <buttons>
+                                <Button mnemonicParsing="false" text="Login" onAction="#loginForm"/>
                                 <Button mnemonicParsing="false" text="Logout" onAction="#logout"/>
                                 <Button mnemonicParsing="false" text="Game Search" onAction="#gameSearchForm"/>
                                 <Button mnemonicParsing="false" text="Adv. Game Search" onAction="#advancedSearchForm"/>
