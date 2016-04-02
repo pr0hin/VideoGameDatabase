@@ -28,6 +28,8 @@ import java.util.ResourceBundle;
  */
 public class ManagerController extends AbstractTabController implements Initializable {
 
+    public static final Integer MIN_WAGE = 10;
+
     @FXML
     AnchorPane managerTableViewContainer;
 
@@ -218,6 +220,10 @@ public class ManagerController extends AbstractTabController implements Initiali
                 actiontarget.setText("Executing query");
                 ManagerModel model = (ManagerModel) getModel();
                 try {
+                    if (Integer.parseInt(wageTextField.getText()) < MIN_WAGE) {
+                        createDialog("Pay needs to be at least minimum wage you slave worker");
+                        return;
+                    }
                     int success = model.updateEmployee(finalEid, wageTextField.getText(), storeNumTextField.getText());
                     if (success == 1) {
                         createDialog("Update succeeded!");
