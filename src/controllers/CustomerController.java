@@ -11,9 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import model.CustomerModel;
 import model.NotLoggedInException;
@@ -151,7 +153,10 @@ public class CustomerController extends AbstractTabController implements Initial
         grid.add(hbBtn, 1, 4);
 
         final Text actiontarget = new Text();
+        actiontarget.setWrappingWidth(200);
         grid.add(actiontarget, 1, 6);
+        actiontarget.setBoundsType(TextBoundsType.VISUAL);
+        grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 
         CustomerModel model = (CustomerModel) getModel();
 

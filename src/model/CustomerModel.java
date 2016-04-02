@@ -82,10 +82,20 @@ public class CustomerModel extends AbstractModel {
     }
 
     public String generateAdvancedSearchString(String cols, String conds) {
-        return "SELECT " + cols + " FROM gameupc NATURAL JOIN gamedevs WHERE " + conds;
+        StringBuilder qry = new StringBuilder("SELECT ");
+               if (cols.equals(""))  {
+                  qry.append("*");
 
+               } else {
+                  qry.append(cols);
+               }
+                qry.append(" FROM gameupc NATURAL JOIN gamedevs");
+                if (!conds.equals("")) {
+                    qry.append(" WHERE ");
+                    qry.append(conds);
+                }
 
-
+        return qry.toString();
     }
 
     public ResultSet executeAdvancedGameSearch(String qry) throws SQLException {
