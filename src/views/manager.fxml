@@ -21,6 +21,8 @@
                                 <Button mnemonicParsing="false" text="Employee Search" onAction="#employeeSearchForm"/>
                                 <Button mnemonicParsing="false" text="Employee Update" onAction="#employeeUpdateForm"/>
                                 <Button mnemonicParsing="false" text="Employee Delete" onAction="#employeeDelete"/>
+                                <Button mnemonicParsing="false" text="Find store with Max stock" onAction="#getMaxStoreStock"/>
+                                <Button mnemonicParsing="false" text="Find store with Min stock" onAction="#getMinStoreStock"/>
                             </buttons>
                         </ButtonBar>
                     </children>

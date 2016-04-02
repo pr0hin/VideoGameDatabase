@@ -39,6 +39,36 @@ public class ManagerController extends AbstractTabController implements Initiali
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    public void getMaxStoreStock(ActionEvent event){
+        ManagerModel model = (ManagerModel) getModel();
+        try {
+            ResultSet rs = model.executeGetMaxStoreStock();
+            if(rs == null){
+                createDialog("Unable to find store with maximum stock");
+            }
+            ResultSetParser rsparser = new ResultSetParser();
+            TableView tbl = rsparser.colparse(rs);
+            addTable(tbl, managerTableViewContainer);
+        } catch (SQLException sqle){
+            createDialog(sqle.getMessage());
+        }
+    }
+
+    public void getMinStoreStock(ActionEvent event){
+        ManagerModel model = (ManagerModel) getModel();
+        try {
+            ResultSet rs = model.executeGetMinStoreStock();
+            if(rs == null){
+                createDialog("Unable to find store with minimum stock");
+            }
+            ResultSetParser rsparser = new ResultSetParser();
+            TableView tbl = rsparser.colparse(rs);
+            addTable(tbl, managerTableViewContainer);
+        } catch (SQLException sqle){
+            createDialog(sqle.getMessage());
+        }
+    }
+
     public void employeeSearchForm(ActionEvent event) {
 
         Stage stage = new Stage();

@@ -72,6 +72,18 @@ public class ManagerModel extends AbstractModel {
         return success;
     }
 
+    public ResultSet executeGetMaxStoreStock() throws SQLException{
+        Statement stmt = this.getConn().createStatement();
+        ResultSet rs = stmt.executeQuery("select T.storeNum, maxStock from(select  max(stockSum) as maxStock from (select storeNum, sum(stock) as stockSum from isInInventory group by storeNum)) Q, (select storeNum, sum(stock) as stockSum from isInInventory group by storeNum) T where T.stockSum = maxStock");
+        return rs;
+    }
+
+    public ResultSet executeGetMinStoreStock() throws SQLException{
+        Statement stmt = this.getConn().createStatement();
+        ResultSet rs = stmt.executeQuery("select T.storeNum, minStock from(select  min(stockSum) as minStock from (select storeNum, sum(stock) as stockSum from isInInventory group by storeNum)) Q, (select storeNum, sum(stock) as stockSum from isInInventory group by storeNum) T where T.stockSum = minStock");
+        return rs;
+    }
+
     public int deleteEmployee(String eid) throws SQLException {
         String qry = "DELETE from employee WHERE eid = \'" + eid + "\'";
 
