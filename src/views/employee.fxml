@@ -19,6 +19,7 @@
                         <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                             <buttons>
                                 <Button mnemonicParsing="false" text="Games on all platforms" onAction="#getGamesOnAllPlatforms"/>
+                                <Button mnemonicParsing="false" text="Games on specific platform" onAction="#getCountOfGamesOnGivenPlat"/>
                             </buttons>
                         </ButtonBar>
                     </children>
