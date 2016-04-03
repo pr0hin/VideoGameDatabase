@@ -129,6 +129,7 @@ INSERT INTO gamedevs VALUES ('Tekken 3', 1999, 'Namco', 'Namco');
 INSERT INTO gamedevs VALUES ('Gran Turismo', 1999, 'Polyphony Digital', 'Sony');
 INSERT INTO gamedevs VALUES ('The legend of Zelda', 1991, 'Nintendo', 'Nintendo');
 INSERT INTO gamedevs VALUES ('Batman: Retirement Sucks', 2020, 'Rocksteady', 'Warner Bros');
+INSERT INTO gamedevs VALUES ('The Division', 2016, 'Ubisoft', 'Ubisoft');
 
 INSERT INTO gameupc VALUES ('222233334444', 'The legend of Zelda', 1990, 'PC', 'Fantasy'); 
 INSERT INTO gameupc VALUES ('000000000001', 'Tony Hawks Pro Skater 2', 2000, 'PS', 'Sports');
@@ -153,6 +154,14 @@ INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'D
 INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'WII', 'Action');
 INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'XBOX', 'Action');
 INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS2', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'PS5', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'PS', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'PC', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'PS3', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'DC', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'WII', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'XBOX', 'Action');
+INSERT INTO gameupc VALUES ('000000000016', 'The Division', 2016, 'PS2', 'Action');
 
 INSERT INTO store VALUES (0, 'Vancouver', '2205 Lower Mall'); 
 INSERT INTO store VALUES (1, 'Burnaby', 'Burnaby lane');
