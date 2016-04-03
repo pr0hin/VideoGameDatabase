@@ -146,6 +146,13 @@ INSERT INTO gameupc VALUES ('000000000012', 'Tekken 3', 1999, 'PC', 'Action');
 INSERT INTO gameupc VALUES ('000000000013', 'Gran Turismo', 1999, 'PC', 'Racing');
 INSERT INTO gameupc VALUES ('000000000014', 'The legend of Zelda', 1991, 'PS', 'Fantasy');
 INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS5', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PC', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS3', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'DC', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'WII', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'XBOX', 'Action');
+INSERT INTO gameupc VALUES ('000000000015', 'Batman: Retirement Sucks', 2020, 'PS2', 'Action');
 
 INSERT INTO store VALUES (0, 'Vancouver', '2205 Lower Mall'); 
 INSERT INTO store VALUES (1, 'Burnaby', 'Burnaby lane');
