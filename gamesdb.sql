@@ -44,12 +44,13 @@ CREATE TABLE employee (
     wage SMALLINT,
     hours INTEGER,
     storeNum SMALLINT,
+    CHECK (wage >= 10),
     isManager CHAR(1),  /*no boolean type replaced with char*/
     PRIMARY KEY(eid),
     UNIQUE(ssin),
     UNIQUE(name, phone),
     FOREIGN KEY(storeNum) references store
-		ON DELETE SET NULL 		/*or cascade*/
+        ON DELETE SET NULL         /*or cascade*/
 );
 
 
@@ -69,18 +70,18 @@ CREATE TABLE isininventory (
  );
  
 CREATE TABLE customer(
-	email CHAR(60),
-	name CHAR(70),
-	phone CHAR(10),
-	PRIMARY KEY(email) /*or set null?*/
+    email CHAR(60),
+    name CHAR(70),
+    phone CHAR(10),
+    PRIMARY KEY(email) /*or set null?*/
 );
 
 CREATE TABLE orders (
-orderID INT,
-odate	DATE,
-email 	CHAR(60),
-PRIMARY KEY(orderID),
-FOREIGN KEY(email) references customer
+    orderID INT,
+    odate    DATE,
+    email     CHAR(60),
+    PRIMARY KEY(orderID),
+    FOREIGN KEY(email) references customer
 );
 
 
@@ -89,7 +90,7 @@ CREATE TABLE ordercontains (
     platform CHAR(16),
     storeNum SMALLINT,
     orderID INT,
-   quantity INT,
+    quantity INT,
     PRIMARY KEY(orderID, upc, platform, storeNum),
     FOREIGN KEY(upc, platform) references gameupc
         ON DELETE CASCADE,
@@ -102,14 +103,14 @@ CREATE TABLE ordercontains (
 
 
 CREATE TABLE favoritegame(
-	email CHAR(60),
-	upc CHAR(12),
-	platform CHAR(16),
-	PRIMARY KEY(email, upc, platform),
-	FOREIGN KEY(email) references customer
-		ON DELETE CASCADE,
-	FOREIGN KEY(upc, platform) references gameupc
-		ON DELETE CASCADE
+    email CHAR(60),
+    upc CHAR(12),
+    platform CHAR(16),
+    PRIMARY KEY(email, upc, platform),
+    FOREIGN KEY(email) references customer
+        ON DELETE CASCADE,
+    FOREIGN KEY(upc, platform) references gameupc
+        ON DELETE CASCADE
 );
 
 
@@ -308,27 +309,4 @@ INSERT INTO favoritegame VALUES('ron@gmail.com','000000000003', 'DC');
 INSERT INTO favoritegame VALUES('ron@gmail.com','000000000004', 'WII');
 INSERT INTO favoritegame VALUES('ron@gmail.com','000000000005', 'XBOX');
 INSERT INTO favoritegame VALUES('ron@gmail.com','000000000006', 'PC');
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
