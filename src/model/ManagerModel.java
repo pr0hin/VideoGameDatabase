@@ -9,6 +9,13 @@ public class ManagerModel extends AbstractModel {
 
     private boolean isManager;
 
+    public ResultSet getGames() throws SQLException {
+        Statement stmt = this.getConn().createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT u.upc, u.title, u.launchyear, platform, genre, devname, pubname FROM gameupc u, gamedevs d " +
+                "WHERE u.title = d.title AND u.launchyear = d.launchyear");
+        return rs;
+    }
+
     public ResultSet executeEmployeeSearchQuery(String name, String storeNum) throws SQLException {
         StringBuilder qry = new StringBuilder();
 
@@ -86,6 +93,15 @@ public class ManagerModel extends AbstractModel {
 
     public int deleteEmployee(String eid) throws SQLException {
         String qry = "DELETE from employee WHERE eid = \'" + eid + "\'";
+
+        Statement stmt = getConn().createStatement();
+        int success = stmt.executeUpdate(qry);
+
+        return success;
+    }
+
+    public int deleteGame(String upc, String platform) throws SQLException {
+        String qry = "DELETE from gameupc WHERE upc = \'" + upc + "\' and platform = \'" + platform + "\'";
 
         Statement stmt = getConn().createStatement();
         int success = stmt.executeUpdate(qry);

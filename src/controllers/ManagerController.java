@@ -38,6 +38,18 @@ public class ManagerController extends AbstractTabController implements Initiali
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    public void gameSearch() {
+        ManagerModel model = (ManagerModel) getModel();
+        try {
+            ResultSet rs = model.getGames();
+            ResultSetParser rsparser = new ResultSetParser();
+            TableView tbl = rsparser.colparse(rs);
+            addTable(tbl);
+        } catch (SQLException sqle) {
+            createDialog(sqle.getMessage());
+        }
+    }
+
     public void getMaxStoreStock(ActionEvent event){
         ManagerModel model = (ManagerModel) getModel();
         try {
@@ -256,7 +268,7 @@ public class ManagerController extends AbstractTabController implements Initiali
         // Get the selected table row
         List item = (List) employeeTable.getSelectionModel().getSelectedItem();
         if (item == null || item.size() == 0) {
-            createDialog("Please select a row to update");
+            createDialog("Please select a row to delete");
             return;
         }
 
@@ -265,7 +277,6 @@ public class ManagerController extends AbstractTabController implements Initiali
 
         for (int i = 0; i < cols.size(); i++) {
             TableColumn col = (TableColumn) cols.get(i);
-            System.out.println(col.getText());
             if (col.getText().equals("EID")) {
                 eid = (String) item.get(i);
             } else if (col.getText().equals("NAME")) {
@@ -335,5 +346,105 @@ public class ManagerController extends AbstractTabController implements Initiali
         stage.setScene(scene);
         stage.show();
 
-   }
+    }
+
+    public void gameDelete(ActionEvent event) {
+        List<Node> containerChildren = super.getContainer().getChildren();
+
+        if (containerChildren.size() == 0) {
+            createDialog("Please query and select a game first");
+            return;
+        }
+
+        TableView gameTable = (TableView) containerChildren.get(0);
+
+        // Get gameTable column titles
+        List cols = gameTable.getColumns();
+
+        // Get the selected table row
+        List item = (List) gameTable.getSelectionModel().getSelectedItem();
+        if (item == null || item.size() == 0) {
+            createDialog("Please select a row to delete");
+            return;
+        }
+
+        String upc = "";
+        String title = "";
+        String platform = "";
+
+        for (int i = 0; i < cols.size(); i++) {
+            TableColumn col = (TableColumn) cols.get(i);
+            if (col.getText().equals("UPC")) {
+                upc = (String) item.get(i);
+            } else if (col.getText().equals("TITLE")) {
+                title = ((String) item.get(i)).trim();
+            } else if (col.getText().equals("PLATFORM")) {
+                platform = ((String) item.get(i)).trim();
+            }
+        }
+
+        if (upc.equals("") || title.equals("") || platform.equals("")) {
+            createDialog("This row does not look like a game. Try again.");
+            return;
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("Delete Game");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        Text scenetitle = new Text("Remove " + title + " (UPC = " + upc + ") on " + platform + " from database?" );
+        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        grid.add(scenetitle, 0, 0, 2, 1);
+
+        Button yesBtn = new Button("Yes");
+        Button noBtn = new Button("No");
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_CENTER);
+        hbBtn.getChildren().add(yesBtn);
+        hbBtn.getChildren().add(noBtn);
+        grid.add(hbBtn, 1, 4);
+
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 6);
+
+        final String finalUpc = upc;
+        final String finalPlatform = platform;
+
+        yesBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                actiontarget.setText("Executing query");
+                ManagerModel model = (ManagerModel) getModel();
+                try {
+                    int success = model.deleteGame(finalUpc, finalPlatform);
+                    System.out.println(success);
+                    if (success == 1) {
+                        stage.close();
+                        createDialog("UPC: " + finalUpc + " on " + finalPlatform + " deleted successfully!");
+                    } else {
+                        createDialog("Deletion failed");
+                    }
+                } catch (SQLException sqle) {
+                    createDialog(sqle.getMessage());
+                }
+
+            }
+        });
+
+        noBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+        });
+
+        Scene scene = new Scene(grid, 550, 150);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 }

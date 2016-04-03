@@ -16,11 +16,21 @@
                         </GridPane>
                         <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                             <buttons>
+                                <Button mnemonicParsing="false" text="Find store with Max stock" onAction="#getMaxStoreStock"/>
+                                <Button mnemonicParsing="false" text="Find store with Min stock" onAction="#getMinStoreStock"/>
+                            </buttons>
+                        </ButtonBar>
+                        <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="10.0">
+                            <buttons>
                                 <Button mnemonicParsing="false" text="Employee Search" onAction="#employeeSearchForm"/>
                                 <Button mnemonicParsing="false" text="Employee Update" onAction="#employeeUpdateForm"/>
                                 <Button mnemonicParsing="false" text="Employee Delete" onAction="#employeeDelete"/>
-                                <Button mnemonicParsing="false" text="Find store with Max stock" onAction="#getMaxStoreStock"/>
-                                <Button mnemonicParsing="false" text="Find store with Min stock" onAction="#getMinStoreStock"/>
+                            </buttons>
+                        </ButtonBar>
+                        <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="10.0">
+                            <buttons>
+                                <Button mnemonicParsing="false" text="Delete Game" onAction="#gameDelete"/>
+                                <Button mnemonicParsing="false" text="Search Games" onAction="#gameSearch"/>
                             </buttons>
                         </ButtonBar>
                     </children>
