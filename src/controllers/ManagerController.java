@@ -30,9 +30,6 @@ public class ManagerController extends AbstractTabController implements Initiali
 
     public static final Integer MIN_WAGE = 10;
 
-    @FXML
-    AnchorPane managerTableViewContainer;
-
     public ManagerController() {
         super(new ManagerModel());
     }
@@ -50,7 +47,7 @@ public class ManagerController extends AbstractTabController implements Initiali
             }
             ResultSetParser rsparser = new ResultSetParser();
             TableView tbl = rsparser.colparse(rs);
-            addTable(tbl, managerTableViewContainer);
+            addTable(tbl);
         } catch (SQLException sqle){
             createDialog(sqle.getMessage());
         }
@@ -65,7 +62,7 @@ public class ManagerController extends AbstractTabController implements Initiali
             }
             ResultSetParser rsparser = new ResultSetParser();
             TableView tbl = rsparser.colparse(rs);
-            addTable(tbl, managerTableViewContainer);
+            addTable(tbl);
         } catch (SQLException sqle){
             createDialog(sqle.getMessage());
         }
@@ -122,7 +119,7 @@ public class ManagerController extends AbstractTabController implements Initiali
                     ResultSetParser rsparser = new ResultSetParser();
                     TableView tbl = rsparser.colparse(rs);
 
-                    addTable(tbl, managerTableViewContainer);
+                    addTable(tbl);
                 } catch (SQLException sqle) {
                     createDialog(sqle.getMessage());
                 }
@@ -137,7 +134,7 @@ public class ManagerController extends AbstractTabController implements Initiali
     }
 
     public void employeeUpdateForm(ActionEvent event) {
-        List<Node> containerChildren = managerTableViewContainer.getChildren();
+        List<Node> containerChildren = super.getContainer().getChildren();
 
         if (containerChildren.size() == 0) {
             createDialog("Please query and select an employee first");
@@ -244,7 +241,7 @@ public class ManagerController extends AbstractTabController implements Initiali
     }
 
     public void employeeDelete(ActionEvent event) {
-        List<Node> containerChildren = managerTableViewContainer.getChildren();
+        List<Node> containerChildren = super.getContainer().getChildren();
 
         if (containerChildren.size() == 0) {
             createDialog("Please query and select an employee first");
@@ -277,7 +274,7 @@ public class ManagerController extends AbstractTabController implements Initiali
         }
 
         if (eid.equals("") || name.equals("")) {
-            createDialog("No columns found");
+            createDialog("This row does not look like an employee. Try again.");
             return;
         }
 

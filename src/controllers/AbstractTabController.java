@@ -15,6 +15,8 @@ import java.sql.Connection;
 public abstract class AbstractTabController {
     private AbstractModel model;
 
+    private AnchorPane container;
+
     public AbstractTabController(AbstractModel model) {
         this.model = model;
     }
@@ -27,7 +29,15 @@ public abstract class AbstractTabController {
         return this.model;
     }
 
-    public void addTable(TableView tbl, AnchorPane container) {
+    public void setContainer(AnchorPane container) {
+        this.container = container;
+    }
+
+    public AnchorPane getContainer() {
+        return this.container;
+    }
+
+    public void addTable(TableView tbl) {
         // Clear previous table(s) and add the new table to the AnchorPane
         container.getChildren().clear();
         container.getChildren().add(tbl);

@@ -31,9 +31,6 @@ import java.util.ResourceBundle;
  */
 public class EmployeeController extends AbstractTabController implements Initializable {
 
-    @FXML
-    AnchorPane employeeTableViewContainer;
-
     public EmployeeController() {
         super(new EmployeeModel());
     }
@@ -51,7 +48,7 @@ public class EmployeeController extends AbstractTabController implements Initial
             }
             ResultSetParser rsparser = new ResultSetParser();
             TableView tbl = rsparser.colparse(rs);
-            addTable(tbl, employeeTableViewContainer);
+            addTable(tbl);
         } catch (SQLException sqle){
             createDialog(sqle.getMessage());
         }
@@ -99,7 +96,7 @@ public class EmployeeController extends AbstractTabController implements Initial
                     ResultSetParser rsparser = new ResultSetParser();
                     TableView tbl = rsparser.colparse(rs);
 
-                    addTable(tbl, employeeTableViewContainer);
+                    addTable(tbl);
 
                 } catch (SQLException sqle) {
                     createDialog(sqle.getMessage());

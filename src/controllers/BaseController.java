@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,9 @@ public class BaseController {
 
     @FXML
     private Parent customer;
+
+    @FXML
+    private AnchorPane tableViewContainer;
 
     @FXML
     private CustomerController customerController;
@@ -29,6 +33,12 @@ public class BaseController {
                 employeeController,
                 managerController
         );
+    }
+
+    public void setTableInControllers() {
+        for (AbstractTabController tab: getTabControllers()) {
+            tab.setContainer(tableViewContainer);
+        }
     }
 
     public CustomerController getCustomerController() {

@@ -60,6 +60,9 @@ public class Main extends Application {
                 tab.setConn(conn);
             }
 
+            // Pass the table to each controller
+            baseController.setTableInControllers();
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(baseLayout);
             primaryStage.setScene(scene);

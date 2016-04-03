@@ -25,24 +25,30 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab text="Customer">
-                    <content>
-                        <fx:include fx:id="customer" source="customer.fxml"/>
-                    </content>
-                </Tab>
-                <Tab text="Employee">
-                    <content>
-                        <fx:include fx:id="employee" source="employee.fxml"/>
-                    </content>
-                </Tab>
-                <Tab text="Manager">
-                    <content>
-                        <fx:include fx:id="manager" source="manager.fxml"/>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
+        <SplitPane dividerPositions="0.7" layoutX="153.0" layoutY="70.0" prefHeight="700.0" prefWidth="600.0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane fx:id="tableViewContainer" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="900.0">
+                </AnchorPane>
+                <TabPane tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Customer">
+                            <content>
+                                <fx:include fx:id="customer" source="customer.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="Employee">
+                            <content>
+                                <fx:include fx:id="employee" source="employee.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="Manager">
+                            <content>
+                                <fx:include fx:id="manager" source="manager.fxml"/>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </items>
+        </SplitPane>
     </top>
 </BorderPane>
