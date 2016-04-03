@@ -220,10 +220,6 @@ public class ManagerController extends AbstractTabController implements Initiali
                 actiontarget.setText("Executing query");
                 ManagerModel model = (ManagerModel) getModel();
                 try {
-                    if (Integer.parseInt(wageTextField.getText()) < MIN_WAGE) {
-                        createDialog("Pay needs to be at least minimum wage you slave worker");
-                        return;
-                    }
                     int success = model.updateEmployee(finalEid, wageTextField.getText(), storeNumTextField.getText());
                     if (success == 1) {
                         createDialog("Update succeeded!");
@@ -231,7 +227,11 @@ public class ManagerController extends AbstractTabController implements Initiali
                         createDialog("Update Failed");
                     }
                 } catch (SQLException sqle) {
-                    createDialog(sqle.getMessage());
+                    if (sqle.getErrorCode() == 2290) {
+                        createDialog("Pay needs to be at least minimum wage you slave worker");
+                    } else {
+                        createDialog(sqle.getMessage());
+                    }
                 }
 
             }

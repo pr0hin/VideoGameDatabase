@@ -44,6 +44,7 @@ CREATE TABLE employee (
     wage SMALLINT,
     hours INTEGER,
     storeNum SMALLINT,
+    CHECK (wage >= 10),
     isManager CHAR(1),  /*no boolean type replaced with char*/
     PRIMARY KEY(eid),
     UNIQUE(ssin),
