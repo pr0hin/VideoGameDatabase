@@ -20,11 +20,11 @@ public class EmployeeModel extends AbstractModel {
         ResultSet rs;
         switch(queryType){
             case "Min Year":
-                 rs = stmt.executeQuery("select platform, min(year) from gameupc where platform = \'"+platform+"\' group by platform");
+                 rs = stmt.executeQuery("select platform, min(launchyear) from gameupc where platform = \'"+platform+"\' group by platform");
                 break;
 
             case "Max Year":
-                 rs = stmt.executeQuery("select platform, max(year) from gameupc where platform = \'"+platform+"\' group by platform");
+                 rs = stmt.executeQuery("select platform, max(launchyear) from gameupc where platform = \'"+platform+"\' group by platform");
                 break;
 
             case "Title Count":

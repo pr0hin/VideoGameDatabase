@@ -80,6 +80,8 @@ public class EmployeeController extends AbstractTabController implements Initial
         }
     }
 
+
+
     public void getCountOfGamesOnGivenPlat(ActionEvent event){
 
         Stage stage = new Stage();
@@ -102,11 +104,16 @@ public class EmployeeController extends AbstractTabController implements Initial
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
+        ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
+                "Min Year", "Max Year", "Title Count")
+        );
+
         ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
                 "PC", "PS", "PS2", "PS3", "PS5", "WII", "DC", "XBOX")
         );
 
         grid.add(cb, 1, 4);
+        grid.add(cb2, 1, 3);
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -115,7 +122,7 @@ public class EmployeeController extends AbstractTabController implements Initial
                 actiontarget.setText("Executing query");
                 EmployeeModel model = (EmployeeModel) getModel();
                 try {
-                    ResultSet rs = model.executeGetNumberOfGamesOnPlatform(cb.getValue().toString());
+                    ResultSet rs = model.executeGetNumberOfGamesOnPlatform(cb.getValue().toString(), cb2.getValue().toString());
                     if (rs == null) {
                         createDialog("No games on specified platform");
                     }
