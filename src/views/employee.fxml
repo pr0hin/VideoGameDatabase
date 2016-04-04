@@ -18,6 +18,8 @@
                             <buttons>
                                 <Button mnemonicParsing="false" text="Games on all platforms" onAction="#getGamesOnAllPlatforms"/>
                                 <Button mnemonicParsing="false" text="Games on specific platform" onAction="#getCountOfGamesOnGivenPlat"/>
+                                <Button mnemonicParsing="false" text="Add One" onAction="#insertAdditionTuple"/>
+                                <Button mnemonicParsing="false" text="Add Rest" onAction="#insertRestofTheTuples"/>
                             </buttons>
                         </ButtonBar>
                     </children>

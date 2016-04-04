@@ -20,4 +20,27 @@ public class EmployeeModel extends AbstractModel {
         ResultSet rs = stmt.executeQuery("select platform, count(title) from gameupc where platform = \'"+platform+"\' group by platform");
         return rs;
     }
+
+    public int executeAddOneTuple() throws SQLException {
+        Statement stmt = getConn().createStatement();
+        int res = stmt.executeUpdate("INSERT INTO gamedevs VALUES ('The Addition', 2016, 'Ubisoft', 'Ubisoft')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'PS5', 'Action')");
+        return res;
+    }
+
+    public int executeRestofTuples() throws SQLException {
+
+        Statement stmt = getConn().createStatement();
+        int res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'PS', 'Action')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'PC', 'Action')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'PS3', 'Action')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'DC', 'Action')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'WII', 'Action')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'XBOX', 'Action')");
+        res = stmt.executeUpdate("INSERT INTO gameupc VALUES ('000000000017', 'The Addition', 2016, 'PS2', 'Action')");
+        return res;
+
+
+    }
 }
+

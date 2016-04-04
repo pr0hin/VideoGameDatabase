@@ -38,6 +38,32 @@ public class EmployeeController extends AbstractTabController implements Initial
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
+
+
+    public void insertAdditionTuple(ActionEvent e) {
+
+        EmployeeModel model = (EmployeeModel) getModel();
+
+        try {
+            int res = model.executeAddOneTuple();
+        } catch (SQLException sqle) {
+            createDialog(sqle.getMessage());
+        }
+    }
+
+    public void insertRestofTheTuples(ActionEvent e) {
+        EmployeeModel model = (EmployeeModel) getModel();
+
+        try {
+            int res = model.executeRestofTuples();
+        } catch (SQLException sqle) {
+            createDialog(sqle.getMessage());
+        }
+
+
+
+    }
+
     public void getGamesOnAllPlatforms(ActionEvent event){
 
         EmployeeModel model = (EmployeeModel) getModel();
