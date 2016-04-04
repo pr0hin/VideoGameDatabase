@@ -14,10 +14,28 @@ public class EmployeeModel extends AbstractModel {
         return rs;
     }
 
-    public ResultSet executeGetNumberOfGamesOnPlatform (String platform) throws SQLException{
+    public ResultSet executeGetNumberOfGamesOnPlatform (String platform, String queryType) throws SQLException{
 
         Statement stmt = this.getConn().createStatement();
-        ResultSet rs = stmt.executeQuery("select platform, count(title) from gameupc where platform = \'"+platform+"\' group by platform");
+        ResultSet rs;
+        switch(queryType){
+            case "Min Year":
+                 rs = stmt.executeQuery("select platform, min(year) from gameupc where platform = \'"+platform+"\' group by platform");
+                break;
+
+            case "Max Year":
+                 rs = stmt.executeQuery("select platform, max(year) from gameupc where platform = \'"+platform+"\' group by platform");
+                break;
+
+            case "Title Count":
+                 rs = stmt.executeQuery("select platform, count(title) from gameupc where platform = \'"+platform+"\' group by platform");
+                break;
+
+            default:
+                 rs = null;
+                break;
+        }
+
         return rs;
     }
 
