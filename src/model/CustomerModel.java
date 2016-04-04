@@ -25,7 +25,7 @@ public class CustomerModel extends AbstractModel {
         if ((!city.equals("")) || (isInStock) || (!title.equals(""))) {
             qry.append(" WHERE ");
             if (!city.equals("")) {
-                qry.append("city LIKE \'%" + city + "%\' AND ");
+                qry.append("UPPER(city) LIKE \'%" + city.toUpperCase() + "%\' AND ");
             }
             if (isInStock) {
                 qry.append("stock > 0 AND ");
