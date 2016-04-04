@@ -19,13 +19,13 @@ public class CustomerModel extends AbstractModel {
             qry.append("SELECT * FROM ");
 
         } else {
-            qry.append("SELECT title, platform, storeNum, city, streetAddress, stock FROM ");
+            qry.append("SELECT title, platform, stock, storeNum, city, streetAddress FROM ");
         }
         qry.append(tables);
         if ((!city.equals("")) || (isInStock) || (!title.equals(""))) {
             qry.append(" WHERE ");
             if (!city.equals("")) {
-                qry.append("city LIKE \'%" + city + "%\' AND ");
+                qry.append("UPPER(city) LIKE \'%" + city.toUpperCase() + "%\' AND ");
             }
             if (isInStock) {
                 qry.append("stock > 0 AND ");
