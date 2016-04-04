@@ -92,8 +92,7 @@ CREATE TABLE ordercontains (
     orderID INT,
     quantity INT,
     PRIMARY KEY(orderID, upc, platform, storeNum),
-    FOREIGN KEY(upc, platform) references gameupc
-        ON DELETE CASCADE,
+    FOREIGN KEY(upc, platform) references gameupc,
     FOREIGN KEY(storeNum) references store
         ON DELETE CASCADE,
     FOREIGN KEY(orderID) references orders

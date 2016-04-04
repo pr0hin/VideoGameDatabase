@@ -31,9 +31,6 @@ import java.util.ResourceBundle;
 
 public class CustomerController extends AbstractTabController implements Initializable {
 
-    @FXML
-    private AnchorPane gameTableViewContainer;
-
     public CustomerController() {
         super(new CustomerModel());
     }
@@ -61,7 +58,7 @@ public class CustomerController extends AbstractTabController implements Initial
             TableView tbl = rsparser.colparse(rs);
 
             // Insert table into the AnchorPane
-            addTable(tbl, this.gameTableViewContainer);
+            addTable(tbl);
         } catch (NotLoggedInException e) {
             createDialog(e.getMessage());
         } catch (SQLException sqle) {
@@ -175,7 +172,7 @@ public class CustomerController extends AbstractTabController implements Initial
                     ResultSet rs = model.executeAdvancedGameSearch(actiontarget.getText());
                     ResultSetParser rsparser = new ResultSetParser();
                     TableView tbl = rsparser.colparse(rs);
-                    addTable(tbl, gameTableViewContainer);
+                    addTable(tbl);
                 } catch (SQLException sqle) {
                     createDialog(sqle.getMessage());
                 }
@@ -247,7 +244,7 @@ public class CustomerController extends AbstractTabController implements Initial
                         ResultSetParser rsparser = new ResultSetParser();
                         TableView tbl = rsparser.colparse(rs);
 
-                        addTable(tbl, gameTableViewContainer);
+                        addTable(tbl);
                     } catch (SQLException sqle) {
                         createDialog(sqle.getMessage());
                     }

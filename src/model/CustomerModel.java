@@ -12,18 +12,6 @@ public class CustomerModel extends AbstractModel {
     private boolean isInStock;
     private boolean details;
 
-    public ResultSet getGames() {
-        try {
-            Statement stmt = this.getConn().createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT u.title, u.launchyear, platform, genre, devname, pubname FROM gameupc u, gamedevs d " +
-                    "WHERE u.title = d.title AND u.launchyear = d.launchyear");
-            return rs;
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-        }
-        return null;
-    }
-
     public ResultSet executeGameSearchQuery(String title, String city) throws SQLException{
         StringBuilder qry = new StringBuilder();
         String tables = "gameupc NATURAL JOIN gamedevs NATURAL JOIN isininventory NATURAL JOIN store";
