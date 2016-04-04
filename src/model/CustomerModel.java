@@ -19,7 +19,7 @@ public class CustomerModel extends AbstractModel {
             qry.append("SELECT * FROM ");
 
         } else {
-            qry.append("SELECT title, platform, storeNum, city, streetAddress, stock FROM ");
+            qry.append("SELECT title, platform, stock, storeNum, city, streetAddress FROM ");
         }
         qry.append(tables);
         if ((!city.equals("")) || (isInStock) || (!title.equals(""))) {
