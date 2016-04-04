@@ -16,6 +16,12 @@ public class ManagerModel extends AbstractModel {
         return rs;
     }
 
+    public ResultSet getInventory() throws SQLException {
+        Statement stmt = this.getConn().createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * from isininventory");
+        return rs;
+    }
+
     public ResultSet executeEmployeeSearchQuery(String name, String storeNum) throws SQLException {
         StringBuilder qry = new StringBuilder();
 

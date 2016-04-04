@@ -50,6 +50,18 @@ public class ManagerController extends AbstractTabController implements Initiali
         }
     }
 
+    public void inventorySearch() {
+        ManagerModel model = (ManagerModel) getModel();
+        try {
+            ResultSet rs = model.getInventory();
+            ResultSetParser rsparser = new ResultSetParser();
+            TableView tbl = rsparser.colparse(rs);
+            addTable(tbl);
+        } catch (SQLException sqle) {
+            createDialog(sqle.getMessage());
+        }
+    }
+
     public void getMaxStoreStock(ActionEvent event){
         ManagerModel model = (ManagerModel) getModel();
         try {

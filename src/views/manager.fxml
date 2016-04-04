@@ -29,6 +29,7 @@
                         </ButtonBar>
                         <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="10.0">
                             <buttons>
+                                <Button mnemonicParsing="false" text="Show Inventory" onAction="#inventorySearch"/>
                                 <Button mnemonicParsing="false" text="Delete Game" onAction="#gameDelete"/>
                                 <Button mnemonicParsing="false" text="Search Games" onAction="#gameSearch"/>
                             </buttons>
